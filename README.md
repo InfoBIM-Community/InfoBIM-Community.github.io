@@ -1,60 +1,146 @@
-# Welcome to InfoBIM
-<div align="center">
-<pre>
-  _____        __      ____ _____ __  __
- |_   _|      / _|    |  _ \_   _|  \/  |
-   | |  _ __ | |_ ___ | |_) || | | \  / |
-   | | | '_ \|  _/ _ \|  _ < | | | |\/| |
-  _| |_| | | | || (_) | |_) || |_| |  | |
- |_____|_| |_|_| \___/|____/_____|_|  |_|
- <br />
-BIM on the inside, drawings on the outside, data for everyone.
-
-</pre>
+<div>
+  <div style="display: inline-block; vertical-align: middle;" width="100">
+    <img src="https://avatars.githubusercontent.com/u/252078843" width="100" alt="InfoBIM Logo" />
+  </div>
+  <div style="display: inline-block; vertical-align: middle; margin-left: 10px;">
+    <h1 style="margin: 0; border-bottom: none;">BIM on the inside, drawings on the outside, data for everyone.</h1>
+  </div>
 </div>
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Manifest](https://img.shields.io/badge/Manifesto-CC%20BY%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by/4.0/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![License](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by/4.0/)
+![Status](https://img.shields.io/badge/Status-Development-yellow?style=for-the-badge)
 
-🇧🇷 [Versão em Português](./README.pt_BR.md)
+> **"If acceptance is PDF, IFC becomes contractual decoration."**
 
-## 1. The Problem: Facade BIM
-- **Scenario**: Public projects where IFC is ignored and only PDFs are validated as final deliverables.
-- **Cause**: The "pen" (audit/acceptance) often lacks technical BIM knowledge to validate models.
-- **Consequence**: BIM becomes just "gourmet CAD". Those who produce rich models see their work "rot on a hard drive", while the official process focuses only on the appearance of 2D sheets.
-- **The AI Aggravating Factor**: In the age of Artificial Intelligence, structured data is the foundation of everything. Validating projects via PDF today is not just inefficient; it makes the project "invisible" to AIs that could optimize costs, schedules, and maintenance. It is rejecting the biggest technological gain of the decade.
-- **Key Phrase**: *"If acceptance is PDF, IFC becomes contractual decoration."*
+<div align="center">
 
-## 2. The Diagnosis: Realistic Acceptance
-- **Fact**: PDF/DWG delivery is, today, non-negotiable in many market contexts and public bodies.
-- **Positioning**: It's no use "fighting the world" or trying to educate the client by force at the moment of delivery.
-- **History**: BIM (since its origins with Charles Eastman) has always aimed to facilitate the generation of drawings and documentation as well.
-- **Conclusion**: 2D delivery does not invalidate the BIM process. What invalidates BIM is using 2D as the source of truth and the model as an accessory.
-- **Key Phrase**: *"PDF doesn't invalidate BIM; it only invalidates the fetish."*
+### 📜 [Read the Manifesto](./MANIFESTO.md)
+**[🇧🇷 Versão em Português](./pt_br/README.md)**
 
-## 3. InfoBIM Principles
-1.  **BIM is Process, not File**: The real value lies in collaboration, data structuring, and automation.
+</div>
+
+---
+
+## 1. The Reality Check: "Facade BIM"
+
+In many public projects and real-world scenarios, **PDF/DWG delivery is non-negotiable**.
+The mistake isn't generating sheets. The mistake is treating the sheet as the **source of truth** and the model as a contractual accessory.
+
+*   **The Problem**: The team delivers models, coordination, and data, but the acceptance process validates only the PDF.
+*   **The Consequence**: BIM becomes "gourmet CAD". Rich models rot on hard drives while decisions are made on static images.
+*   **The Risk**: In the age of AI, validating projects via PDF makes them "invisible" to agents that could optimize costs and schedules.
+
+**InfoBIM** exists to operate in this real world: delivering what the market demands (PDFs/Drawings) without giving up what the 21st century allows (Data/BIM).
+
+> **"PDF doesn't invalidate BIM; it only invalidates the fetish."**
+
+---
+
+## 2. The Solution: InfoBIM
+
+**InfoBIM** is an operational hub for **triage, audit, and execution** of BIM data. It acts as a bridge between the "messy" reality of construction inputs and the structured requirements of data management.
+
+### Core Principles
+1.  **BIM is Process, not File**: The real value lies in collaboration and data structuring.
 2.  **Model is Engine, Sheet is Interface**: The model works behind the scenes to generate the necessary documentation.
-3.  **Integration**: Those who don't know BIM are brought into the flow without needing to "ask for permission". The process absorbs non-BIM inputs and delivers non-BIM outputs, but operates in BIM.
-4.  **Automation as Glue**: Standardization and automation ensure that the modeling effort pays off in deliverable generation.
+3.  **Automation as Glue**: Standardization ensures modeling effort pays off.
 
-## 4. The Proposal: "BIM on the Inside, 2D on the Outside"
-A methodology to survive and thrive in the current market, reaping the benefits of BIM internally.
+### The Methodology
+1.  **Input (Real World)**: Accepts "dirty" or non-parameterized data (DWG, PDF, legacy spreadsheets).
+2.  **Core (The Truth)**: Data is structured, classified, and audited. **The model is the engine.**
+3.  **Output (The Market)**: Automatically generates what the contract demands (PDF sheets) *derived* from the model, plus structured data (IFC/API) for those ready to consume it.
 
-### The Workflow
-1.  **Input**:
-    *   Accepts non-parameterized or "dirty" data (DWG, PDF, spreadsheets, manual surveys).
-2.  **Core (InfoBIM Core)**:
-    *   Where work becomes reliable data: Standardization, Structuring, Classification, Coordination, and Traceability.
-3.  **Output**:
-    *   **Mandatory**: Automatic generation of sheets (PDF/DWG) to fulfill the contract.
-    *   **Optional**: IFC, BCF, tables, and structured data for those mature enough to consume them.
+---
 
-## 5. How to Implement (Routine)
-- Define an internal team "contract" on what is mandatory in the BIM core.
-- Set up the pipeline: templates, sheets, minimum parameters.
-- Always treat the sheet as a **derivation** of the model, never as the origin.
+## 3. The Hybrid Architecture: TUI + Infra + AI
 
-## 6. Conclusion
-The strategy is not to wait for the market to mature, but to build a flow where BIM wins by "gravity" and efficiency. We deliver what the client asks for (PDF), but we produce it in the way the 21st century allows (Data).
+The project consolidates scattered tools into a coherent architecture that unites three worlds:
+
+### 🏃 The Human Interface (TUI)
+Built on **Textual** and **Rich**. Fast, lightweight, and focused on productivity.
+*   **Triage & Navigation**: Automatic directory scanning and IFC filtering.
+*   **Inspection**: Dynamic technical reports rendered via Jinja2.
+*   **Visual Feedback**: `print_message_box`, semantic colors, and real-time progress.
+
+### 🏗️ Infrastructure as Product
+The **InfoBIM Infrastructure Stack** ensures the software runs anywhere.
+*   **Radical Standardization**: Docker and rigid folder structures (`stack/`, `data/`) eliminate "it works on my machine".
+*   **Check & Repair**: The system self-diagnoses (`./infobim check`).
+*   **Prompt as Code (PEaC)**: Instructions for AIs are versioned (`stack/prompts/`), ensuring automated agents follow the same business rules as humans.
+
+### 🧠 The Artificial Brain (LLM as Planner)
+*   **LLM Plans, It Doesn't Execute**: An AI doesn't "guess" the roof area. It understands the question and calls a **deterministic script**.
+*   **Auditable**: The actual calculation is performed by Python/OntoBDC code.
+*   **Multilingual**: Ask in Portuguese, English, Spanish or French; the system translates intent to technical commands.
+
+---
+
+## 4. Architecture & Data Flow
+
+### Layers
+1.  **Presentation (TUI)**: Manages input/output and screens.
+2.  **Adapters**: The bridge between CLI/TUI and the Core.
+3.  **Domain (OntoBDC)**: The BIM business rules engine and persistence layer.
+4.  **Infrastructure**: Bash scripts and Docker.
+
+### Event Sourcing
+Unlike systems that rely on file comparisons (IFC diffs), InfoBIM focuses on **action traceability**. Every operation (import, fix, export) is a registered event, allowing for objective auditing: *"Who did what, when, and with which parameters?"*
+
+---
+
+## 5. Preview
+
+<table>
+<tr>
+<td width="50%">
+<a href="">
+<img src="docs/images/menu-preview.png" alt="InfoBIM CLI Main Menu" />
+</a>
+</td>
+<td width="50%">
+<a href="">
+<img src="docs/images/report-preview.png" alt="IFC File Details" />
+</a>
+</td>
+</tr>
+<tr>
+<td align="center"><b>Main Menu</b><br/>The central hub for triage and navigation.</td>
+<td align="center"><b>IFC File Details</b><br/>Structured inspection and reporting.</td>
+</tr>
+</table>
+
+---
+
+## 6. How to Run
+
+The tool is designed to run in containers.
+
+### Prerequisites
+- Docker Engine & Docker Compose
+
+### Commands
+```bash
+# Install and verify environment
+./infobim install
+./infobim check
+
+# Start the Interactive CLI
+./infobim ifc
+```
+
+---
+
+## 7. Distribution Model
+
+*   **Local (Open Source)**: For technical users. Requires Docker. Free and unlimited.
+*   **Provider (API)**: For the general AECO market. Users access via API/Web managed by a provider, eliminating infrastructure friction.
+
+---
+
+## License
+
+This project is licensed under the **Apache License 2.0**. See the [LICENSE](LICENSE) file for details.
+
+<div align="center">
+  <b>Proudly developed in Brazil 🇧🇷, so far</b>
+</div>
