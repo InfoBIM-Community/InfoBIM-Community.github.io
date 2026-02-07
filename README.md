@@ -43,35 +43,34 @@ The mistake isn't generating sheets. The mistake is treating the sheet as the **
 ### Core Principles
 1.  **BIM is Process, not File**: The real value lies in collaboration and data structuring.
 2.  **Model is Engine, Sheet is Interface**: The model works behind the scenes to generate the necessary documentation.
-3.  **Automation as Glue**: Standardization ensures modeling effort pays off.
+3.  **Automation via Capabilities**: Don't build monolithic apps. Build small, reusable, agent-ready tools.
 
 ### The Methodology
 1.  **Input (Real World)**: Accepts "dirty" or non-parameterized data (DWG, PDF, legacy spreadsheets).
-2.  **Core (The Truth)**: Data is structured, classified, and audited. **The model is the engine.**
-3.  **Output (The Market)**: Automatically generates what the contract demands (PDF sheets) *derived* from the model, plus structured data (IFC/API) for those ready to consume it.
+2.  **Core (Capabilities)**: Data is processed by atomic **Capabilities** (scripts that do one thing well, e.g., "Check Sewage Slope").
+3.  **Output (The Market)**: Automatically generates what the contract demands (PDF sheets) *derived* from the model, plus structured data (IFC/JSON) for those ready to consume it.
 
 ---
 
-## 3. The Hybrid Architecture: TUI + Infra + AI
+## 3. The Hybrid Architecture: TUI + Capabilities + AI
 
 The project consolidates scattered tools into a coherent architecture that unites three worlds:
 
 ### 🏃 The Human Interface (TUI)
 Built on **Textual** and **Rich**. Fast, lightweight, and focused on productivity.
 *   **Triage & Navigation**: Automatic directory scanning and IFC filtering.
-*   **Inspection**: Dynamic technical reports rendered via Jinja2.
-*   **Visual Feedback**: `print_message_box`, semantic colors, and real-time progress.
+*   **Visual Feedback**: Semantic colors and real-time progress.
 
-### 🏗️ Infrastructure as Product
-The **InfoBIM Infrastructure Stack** ensures the software runs anywhere.
-*   **Radical Standardization**: Docker and rigid folder structures (`stack/`, `data/`) eliminate "it works on my machine".
-*   **Check & Repair**: The system self-diagnoses (`./infobim check`).
-*   **Prompt as Code (PEaC)**: Instructions for AIs are versioned (`stack/prompts/`), ensuring automated agents follow the same business rules as humans.
+### 🧩 The Capability Engine
+The **InfoBIM Stack** is a runtime for engineering logic.
+*   **Radical Standardization**: Docker and rigid folder structures ensure scripts run anywhere.
+*   **Atomic Units**: Features are delivered as **Capabilities** (e.g., `infobim.capability.list_sewage_pipes`).
+*   **Self-Documenting**: Every capability declares its own Inputs and Outputs via JSON Schema.
 
-### 🧠 The Artificial Brain (LLM as Planner)
-*   **LLM Plans, It Doesn't Execute**: An AI doesn't "guess" the roof area. It understands the question and calls a **deterministic script**.
-*   **Auditable**: The actual calculation is performed by Python/OntoBDC code.
-*   **Multilingual**: Ask in Portuguese, English, Spanish or French; the system translates intent to technical commands.
+### 🤖 Agent-Ready (AI as Planner)
+*   **LLM Plans, Capabilities Execute**: An AI doesn't "guess" the pipe slope. It calls the `list_sewage_pipes` capability.
+*   **Discovery**: Agents can query the system (`./infobim run --json`) to learn what tools are available.
+*   **Auditable**: The actual calculation is performed by deterministic Python code, not hallucinated by the model.
 
 ---
 
