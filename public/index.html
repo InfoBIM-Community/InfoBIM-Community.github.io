@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="pt-BR" data-lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="100x100"
+      href="images/infobim-ico.png"
+    />
+    <title data-i18n="meta.title">InfoBIM – A modular runtime environment for Engineering Automation</title>
+    <meta
+      name="description"
+      data-i18n-meta="meta.description"
+      content="InfoBIM IFC is a modular runtime for Engineering Automation that exposes reusable Capabilities so humans and AI agents can execute reliable BIM logic directly from IFC models."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="InfoBIM" />
+    <meta
+      property="og:title"
+      data-i18n-meta="meta.title"
+      content="InfoBIM – A modular runtime environment for Engineering Automation"
+    />
+    <meta
+      property="og:description"
+      data-i18n-meta="meta.description"
+      content="InfoBIM IFC is a modular runtime for Engineering Automation that exposes reusable Capabilities so humans and AI agents can execute reliable BIM logic directly from IFC models."
+    />
+    <meta property="og:image" content="images/infobim-community.png" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      data-i18n-meta="meta.title"
+      content="InfoBIM – A modular runtime environment for Engineering Automation"
+    />
+    <meta
+      name="twitter:description"
+      data-i18n-meta="meta.description"
+      content="InfoBIM IFC is a modular runtime for Engineering Automation that exposes reusable Capabilities so humans and AI agents can execute reliable BIM logic directly from IFC models."
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #1b263b 0, #000 55%);
+        color: #e0fdf4;
+      }
+      .navbar-dark .navbar-brand {
+        font-weight: 600;
+        letter-spacing: 0.08em;
+      }
+      .neon {
+        color: #6fffd3;
+        text-shadow: 0 0 8px rgba(111, 255, 211, 0.7);
+      }
+      .brand-text {
+        font-size: 1.6rem;
+        line-height: 1;
+      }
+      .hero {
+        min-height: 80vh;
+      }
+      .infobim-logo {
+        height: 50px;
+        filter:
+          drop-shadow(0 0 8px rgba(111, 255, 211, 0.75))
+          drop-shadow(0 0 16px rgba(111, 255, 211, 0.4));
+      }
+      @media (min-width: 992px) {
+        .infobim-logo {
+          height: 60px;
+        }
+        .brand-text {
+          font-size: 2.4rem;
+        }
+      }
+      .section-frame {
+        position: relative;
+        border: 1px solid rgba(111, 255, 211, 0.4);
+        box-shadow:
+          0 0 18px rgba(111, 255, 211, 0.3),
+          inset 0 0 24px rgba(0, 0, 0, 0.9);
+        background: radial-gradient(circle at top left, rgba(111, 255, 211, 0.06), transparent 55%);
+      }
+      .section-frame::before,
+      .section-frame::after {
+        content: "";
+        position: absolute;
+        border: 1px solid rgba(111, 255, 211, 0.5);
+        opacity: 0.3;
+        pointer-events: none;
+      }
+      .section-frame::before {
+        inset: 10px 18px auto auto;
+      }
+      .section-frame::after {
+        inset: auto auto 10px 18px;
+      }
+      .tag-pill {
+        border-radius: 999px;
+        border: 1px solid rgba(111, 255, 211, 0.6);
+        padding: 0.25rem 0.9rem;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+      body {
+        padding-top: 3.5rem;
+      }
+      @media (min-width: 992px) {
+        body {
+          padding-top: 4.25rem;
+        }
+      }
+      .terminal {
+        background: #050b12;
+        border-radius: 0.75rem;
+        border: 1px solid rgba(111, 255, 211, 0.6);
+        box-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+          monospace;
+      }
+      .terminal-header {
+        border-bottom: 1px solid rgba(111, 255, 211, 0.3);
+        padding: 0.4rem 0.9rem;
+        display: flex;
+        gap: 0.35rem;
+      }
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+      }
+      .dot-red {
+        background: #ff5f57;
+      }
+      .dot-yellow {
+        background: #ffbd2e;
+      }
+      .dot-green {
+        background: #28c840;
+      }
+      .terminal-body {
+        padding: 2rem;
+        font-size: 0.82rem;
+        color: #9fffe0;
+      }
+      .terminal-line {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        margin-top: 15px;
+        padding: 0;
+      }
+      .terminal-highlight {
+        background: #6fffd3;
+        color: #050b12;
+        display: block;
+        padding: 0rem 0.5rem;
+      }
+      .terminal-line-option {
+        padding-left: 2rem;
+      }
+      .timeline-step {
+        border-radius: 0.75rem;
+        border: 1px solid rgba(111, 255, 211, 0.6);
+        background: rgba(3, 12, 24, 0.9);
+      }
+      .separator-arrow {
+        font-size: 1.5rem;
+      }
+      .capability-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .capability-step {
+        position: relative;
+        padding: 0.75rem 1.75rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(111, 255, 211, 0.9);
+        background: radial-gradient(circle at top left, rgba(111, 255, 211, 0.24), rgba(3, 12, 24, 0.95));
+        box-shadow:
+          0 0 22px rgba(111, 255, 211, 0.35),
+          inset 0 0 10px rgba(0, 0, 0, 0.8);
+        color: #e0fdf4;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.78rem;
+        overflow: hidden;
+      }
+      .capability-step::after {
+        content: "";
+        position: absolute;
+        top: -1px;
+        right: -26px;
+        width: 28px;
+        height: calc(100% + 2px);
+        background: inherit;
+        border-top: inherit;
+        border-right: inherit;
+        border-bottom: inherit;
+        box-shadow: inherit;
+        clip-path: polygon(0 0, 100% 50%, 0 100%);
+      }
+      .capability-step-end::after {
+        display: none;
+      }
+      .capability-step-title {
+        font-weight: 600;
+        font-size: 0.78rem;
+      }
+      .capability-step-body {
+        font-size: 0.78rem;
+        text-transform: none;
+        letter-spacing: 0;
+      }
+      .agent-flow-arrow {
+        text-align: center;
+        color: rgba(111, 255, 211, 0.9);
+        font-size: 1.1rem;
+        line-height: 1;
+      }
+      .agent-flow .capability-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding-right: 1.25rem;
+      }
+      .agent-flow .capability-step-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        border: 1px solid rgba(111, 255, 211, 0.9);
+        background: radial-gradient(circle at 30% 30%, rgba(111, 255, 211, 0.7), rgba(3, 12, 24, 0.95));
+        box-shadow: 0 0 14px rgba(111, 255, 211, 0.45);
+        flex-shrink: 0;
+      }
+      .agent-flow .capability-step:not(:first-child)::before {
+        content: "";
+        position: absolute;
+        left: 32px;
+        top: -10px;
+        border-width: 0 7px 8px 7px;
+        border-style: solid;
+        border-color: transparent transparent rgba(111, 255, 211, 0.95) transparent;
+        opacity: 0.85;
+      }
+      .inconsistency-frame {
+        border-radius: 0.75rem;
+        border: 1px solid rgba(111, 255, 211, 0.9);
+        box-shadow:
+          0 0 26px rgba(111, 255, 211, 0.5),
+          inset 0 0 10px rgba(0, 0, 0, 0.9);
+        overflow: hidden;
+        background: rgba(3, 12, 24, 0.9);
+      }
+      .inconsistency-frame {
+        position: relative;
+      }
+      .inconsistency-frame img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .community-icon {
+        display: block;
+        margin: 0 auto 0.5rem;
+        max-height: 80px;
+      }
+      .community-link {
+        text-decoration: none;
+        color: inherit;
+      }
+      .pricing-caption {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(111, 255, 211, 0.6);
+        background: rgba(3, 12, 24, 0.6);
+      }
+      .pricing-overlay {
+        position: absolute;
+        left: 1.5rem;
+        right: 1.5rem;
+        top: 1.5rem;
+        display: flex;
+        flex-direction: row;
+        gap: 0.75rem;
+        align-items: stretch;
+        z-index: 2;
+      }
+      .pricing-bg {
+        opacity: 0.3;
+      }
+      .pricing-overlay .pricing-caption:first-child {
+        flex: 0 0 32%;
+      }
+      .pricing-overlay .pricing-caption:last-child {
+        flex: 0 0 32%;
+        margin-left: auto;
+      }
+      @media (max-width: 575.98px) {
+        .hero {
+          min-height: 70vh;
+        }
+        .terminal-body {
+          padding-left: 0.5rem;
+          padding-right: 0.25rem;
+          font-size: 0.76rem;
+        }
+        .terminal-line-option {
+          padding-left: 1rem;
+        }
+        .capability-steps {
+          gap: 0.75rem;
+        }
+        .capability-step {
+          font-size: 0.72rem;
+          padding: 0.6rem 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-black text-light">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-black border-bottom border-success border-opacity-50">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#hero">
+          <img
+            src="images/infobim.png"
+            alt="InfoBIM"
+            class="infobim-logo"
+          />
+          <span class="neon ms-2 brand-text">Info</span><b class="brand-text">BIM</b>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNavbar"
+          aria-controls="mainNavbar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav ms-auto me-3">
+            <li class="nav-item">
+              <a class="nav-link" href="#discovery" data-i18n="nav.discovery">Discovery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#clash" data-i18n="nav.clash">Clash</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#reports" data-i18n="nav.reports">Reports</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#pricing" data-i18n="nav.pricing">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#community" data-i18n="nav.community">Community</a>
+            </li>
+          </ul>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-outline-success lang-switch" data-lang="en">
+              EN
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-success lang-switch" data-lang="pt-BR">
+              PT
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-success lang-switch" data-lang="es">
+              ES
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section id="hero" class="hero d-flex align-items-center py-2">
+      <div class="container">
+        <div class="row g-4 align-items-center section-frame p-4 p-md-5 mt-3 mt-md-0">
+          <div class="col-12">
+            <p class="tag-pill text-light bg-success bg-opacity-25 w-100 text-center mb-3" data-i18n="hero.tagline">
+              The interface between BIM data, Human Engineers, and AI Agents
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-semibold neon mb-3" data-i18n="hero.title">InfoBIM: The Capability Engine for BIM Automation</h1>
+            <p class="text-secondary mb-3" data-i18n="hero.lead">
+              InfoBIM IFC is a modular runtime environment for Engineering Automation designed to
+              bridge the gap between static BIM data and dynamic AI agents.
+            </p>
+            <div class="row g-3">
+              <div class="col-sm-4">
+                <div class="small text-success fw-semibold mb-1" data-i18n="hero.fordismo.title">Your Scripts, Evolved</div>
+                <div class="text-secondary small" data-i18n="hero.fordismo.body">Turns ad-hoc BIM scripts into a repeatable production line of capabilities, so agents can reuse them safely across projects.</div>
+              </div>
+              <div class="col-sm-4">
+                <div class="small text-success fw-semibold mb-1" data-i18n="hero.taylorismo.title">Two Approaches</div>
+                <div class="text-secondary small" data-i18n="hero.taylorismo.body">Whether you are a human or an AI Agent planning a workflow, InfoBIM IFC provides the standard.</div>
+              </div>
+              <div class="col-sm-4">
+                <div class="small text-success fw-semibold mb-1" data-i18n="hero.clt.title">Stable Runtime</div>
+                <div class="text-secondary small" data-i18n="hero.clt.body">You don't need to manually configure environments with IfcOpenShell or manage Python library conflicts.</div>
+              </div>
+            </div>
+            <p class="mt-4 fst-italic text-secondary" data-i18n="hero.quote">
+              “Engineers focus on what matters; the runtime handles the rest.”
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <div class="terminal">
+              <div class="terminal-header">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+                <span class="ms-2 text-secondary small">>_ InfoBIM - v1.0.0</span>
+              </div>
+              <div class="terminal-body pt-6 pb-6">
+                <div class="terminal-line mb-4 pb-3">
+                  >_ user@bim-station:~$ ./infobim run
+                </div>
+                <div class="terminal-line mt-3">
+                  >_ Select Capability:
+                </div>
+                <div class="terminal-line mt-2 terminal-highlight terminal-line-option">
+                  [1] Scan Directory (/data/incoming)
+                </div>
+                <div class="terminal-line terminal-line-option">
+                  [2] List Sewage Pipes
+                </div>
+                <div class="terminal-line terminal-line-option">
+                  [3] Validate Model Structure
+                </div>
+                <div class="terminal-line terminal-line-option">
+                  ...
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="discovery" class="py-5">
+      <div class="container">
+        <div class="row g-4 section-frame p-4 p-md-5">
+          <div class="col-lg-6">
+            <h2 class="h3 neon mb-3" data-i18n="discovery.title">Interface for Agents: The Discovery Protocol</h2>
+            <p class="mb-2" data-i18n="discovery.lead1">
+              InfoBIM is 'Agent-Friendly'. It provides a machine-readable catalog of tools, enabling LLMs to understand available functions and their parameters without hallucinations.
+            </p>
+            <p class="mb-4" data-i18n="discovery.lead2">
+              By wrapping codes in metadata, schema, and documentation, logic becomes discoverable and self-descriptive.
+            </p>
+            <p class="small text-secondary border-start border-success ps-3" data-i18n="discovery.quote">
+              Key Insight: Agents do not 'guess' geometry; they call Capabilities that return precise results.
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <div class="row g-3">
+              <div class="col-12">
+                <div class="capability-steps agent-flow">
+                  <div class="capability-step">
+                    <div class="capability-step-icon"></div>
+                    <div class="capability-step-content">
+                      <div class="capability-step-title" data-i18n="challenge.week1.title">
+                        AI Agent
+                      </div>
+                      <div class="capability-step-body">
+                        <strong>Request:</strong> ./infobim run --json
+                      </div>
+                    </div>
+                  </div>
+                  <div class="agent-flow-arrow">\/</div>
+                  <div class="capability-step">
+                    <div class="capability-step-icon"></div>
+                    <div class="capability-step-content">
+                      <div class="capability-step-title">
+                        InfoBIM
+                      </div>
+                      <div class="capability-step-body">
+                        <strong>Response:</strong> an execution plan (JSON)
+                      </div>
+                    </div>
+                  </div>
+                  <div class="agent-flow-arrow">\/</div>
+                  <div class="capability-step capability-step-end">
+                    <div class="capability-step-icon"></div>
+                    <div class="capability-step-content">
+                      <div class="capability-step-title" data-i18n="challenge.week4.title">
+                        AI Agent (Selecting Tool)
+                      </div>
+                      <div class="capability-step-body">
+                        <strong>Action:</strong> ./infobim run {capability_id} {ifc_file_path} --export json
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="clash" class="py-5">
+      <div class="container">
+        <div class="row g-4 section-frame p-4 p-md-5">
+          <div class="col-12">
+            <h2 class="h3 neon mb-1" data-i18n="clash.title">Deep Dive: Clash Detection & Compliance</h2>
+            <p class="text-secondary mb-3" data-i18n="clash.subtitle">Automated logic checking.</p>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">
+                <span class="text-success" data-i18n="clash.bullets.idsRules.label">IDS-native rules:</span>
+                <span class="text-secondary" data-i18n="clash.bullets.idsRules.body">Supports buildingSMART IDS files to encode requirements as machine-readable contracts.</span>
+              </li>
+              <li class="mb-2">
+                <span class="text-success" data-i18n="clash.bullets.propertyChecks.label">Property-first checks:</span>
+                <span class="text-secondary" data-i18n="clash.bullets.propertyChecks.body">Software-agnostic checks using property sets, with official or custom schemas.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">
+                <span class="text-success" data-i18n="clash.bullets.alwaysOn.label">Always-on engine:</span>
+                <span class="text-secondary" data-i18n="clash.bullets.alwaysOn.body">The engine can run continuously, applying complex engineering standards the same way every time.</span>
+              </li>
+              <li class="mb-2">
+                <span class="text-success" data-i18n="clash.bullets.engineerInCommand.label">Engineer in command:</span>
+                <span class="text-secondary" data-i18n="clash.bullets.engineerInCommand.body">The final decision stays with the engineer, who can override or refine any result.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-12">
+            <div class="inconsistency-frame mt-3">
+              <img
+                src="images/inconsistency.png"
+                alt="Inconsistency detected: calculation vs drawing"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reports" class="py-5">
+      <div class="container">
+        <div class="row g-4 section-frame p-4 p-md-5">
+          <div class="col-lg-6">
+            <h2 class="h3 neon mb-3" data-i18n="reports.overview.title">Automatic Descriptive Reports</h2>
+            <p class="mb-2" data-i18n="reports.overview.body">
+              InfoBIM turns descriptive reports into code. It exposes a machine-readable catalog of Capabilities that generate Markdown sections for each chapter of the technical narrative - directly from IFC models.
+            </p>
+            <p class="mb-4" data-i18n="reports.overview.lead">
+              Instead of hand-writing memorials, agents orchestrate Capabilities for project identification, floor summaries, spaces, and systems. Each Capability has metadata, schema, and documentation, so the report structure is discoverable, traceable, and repeatable.
+            </p>
+            <p class="small text-secondary border-start border-success ps-3" data-i18n="reports.overview.quote">
+              Agents do not write memorials from scratch; they call Capabilities that output verifiable Markdown blocks.
+            </p>
+          </div>
+          <div class="col-lg-6">
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <div class="timeline-step p-3 h-100">
+                  <div class="text-success fw-semibold mb-1" data-i18n="reports.cards.faster.title">Faster memorials</div>
+                  <div class="small text-secondary" data-i18n="reports.cards.faster.body">Project identification and context are generated directly from IFCs as ready‑to‑use Markdown sections.</div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="timeline-step p-3 h-100">
+                  <div class="text-success fw-semibold mb-1" data-i18n="reports.cards.traceable.title">Traceable narrative</div>
+                  <div class="small text-secondary" data-i18n="reports.cards.traceable.body">Each paragraph in the descriptive report is backed by Capabilities, so every statement can be traced back to model data.</div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="timeline-step p-3 h-100">
+                  <div class="text-success fw-semibold mb-1" data-i18n="reports.cards.capabilityDriven.title">Capability-driven reports</div>
+                  <div class="small text-secondary" data-i18n="reports.cards.capabilityDriven.body">Memorial sections are generated by Capabilities (project identification, floors, spaces, systems) in consistent Markdown ready for human review.</div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="timeline-step p-3 h-100">
+                  <div class="text-success fw-semibold mb-1" data-i18n="reports.cards.reusableKnowledge.title">Reusable knowledge</div>
+                  <div class="small text-secondary" data-i18n="reports.cards.reusableKnowledge.body">Narrative logic lives in Capabilities and Usecases, not in one person’s head, so new projects reuse the same automated memorial pipeline.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing" class="py-5">
+      <div class="container">
+        <div class="row g-4 section-frame p-4 p-md-5">
+          <div class="col-12">
+            <h2 class="h3 neon mb-1" data-i18n="pricing.title">InfoBIM is FREE and Open-Source</h2>
+            <p class="text-secondary mb-3" data-i18n="pricing.subtitle">
+              Use InfoBIM IFC at no cost: run it self-hosted or work with an implementor who manages infrastructure, DevOps and long-term support.
+            </p>
+          </div>
+          <div class="col-lg-12 ps-lg-0 d-none d-md-block">
+            <div class="inconsistency-frame ms-lg-auto">
+              <img
+                src="images/vs.png"
+                alt="Inconsistency detected: calculation vs drawing"
+                class="pricing-bg"
+              />
+              <div class="pricing-overlay">
+                <div class="pricing-caption small text-secondary">
+                  <span class="text-uppercase fw-bold mb-4 text-white" data-i18n="pricing.image.badge"><strong>SELF-HOSTED</strong></span>
+                  <span data-i18n="pricing.image.badge.body" class="mb-5">
+                    Run InfoBIM on your own infrastructure: clone the GitHub repository, configure your projects and start the services in your environment.
+                  </span>
+                  <img
+                    src="images/free.png"
+                    alt="InfoBIM is FREE and Open-Source"
+                    width="240"
+                    class="my-4 mx-auto"
+                    style="display: block;"
+                  />
+                </div>
+                <div class="pricing-caption small text-secondary">
+                  <span class="text-uppercase fw-bold mb-4 text-white" data-i18n="pricing.image.implementor.title">
+                    IMPLEMENTOR SUPPORT
+                  </span>
+                  <span data-i18n="pricing.image.implementor.body" class="mb-5">
+                    Work with a specialized implementor who handles installation, infrastructure and ongoing DevOps support for your InfoBIM deployment.
+                  </span>
+                  <img
+                    src="images/apache_license.png"
+                    alt="Implementor support for InfoBIM"
+                    width="180"
+                    class="my-4 mx-auto d-block"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 d-block d-md-none mt-3">
+            <div class="pricing-caption small text-secondary mb-3">
+              <span class="text-uppercase fw-bold mb-2 text-white" data-i18n="pricing.image.badge"><strong>SELF-HOSTED</strong></span>
+              <span data-i18n="pricing.image.badge.body">
+                Run InfoBIM on your own infrastructure: clone the GitHub repository, configure your projects and start the services in your environment.
+              </span>
+              <img
+                src="images/free.png"
+                alt="InfoBIM is FREE and Open-Source"
+                width="200"
+                class="mt-3 mx-auto d-block"
+              />
+            </div>
+            <div class="pricing-caption small text-secondary">
+              <span class="text-uppercase fw-bold mb-2 text-white" data-i18n="pricing.image.implementor.title">
+                IMPLEMENTOR SUPPORT
+              </span>
+              <span data-i18n="pricing.image.implementor.body">
+                Work with a specialized implementor who handles installation, infrastructure and ongoing DevOps support for your InfoBIM deployment.
+              </span>
+              <img
+                src="images/apache_license.png"
+                alt="Implementor support for InfoBIM"
+                width="200"
+                class="mt-3 mx-auto d-block"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="community" class="py-5 pb-6">
+      <div class="container">
+        <div class="row g-4 section-frame p-4 p-md-5">
+          <div class="col-12">
+            <h2 class="h3 neon mb-2" data-i18n="community.title">Join the InfoBIM Community</h2>
+            <p class="text-secondary mb-4" data-i18n="community.subtitle">
+              Share capabilities, experiments and real-world IFC automation recipes.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <div class="timeline-step p-3 h-100 text-center">
+              <a href="https://github.com/InfoBIM-Community" target="_blank" rel="noopener noreferrer" class="community-link">
+                <div class="fw-semibold text-success mb-1" data-i18n="community.card1.title">Github</div>
+                <img
+                  src="images/github.png"
+                  alt="InfoBIM on GitHub"
+                  class="community-icon"
+                />
+              </a>
+              <div class="small text-secondary" data-i18n="community.card1.body">
+                Source code, issues and capability examples for InfoBIM. The foundational infrastructure for the next generation of BIM automation.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="timeline-step p-3 h-100 text-center">
+              <a href="https://discord.gg/j8zTsdBw" target="_blank" rel="noopener noreferrer" class="community-link">
+                <div class="fw-semibold text-success mb-1" data-i18n="community.card2.title">Discord</div>
+                <img
+                  src="images/discord.png"
+                  alt="InfoBIM on Discord"
+                  class="community-icon"
+                />
+              </a>
+              <div class="small text-secondary" data-i18n="community.card2.body">
+                Real-time chat with other engineers to discuss pipelines, standards and automation.
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="timeline-step p-3 h-100 text-center">
+              <a href="https://blog.infobim.org" target="_blank" rel="noopener noreferrer" class="community-link">
+                <div class="fw-semibold text-success mb-1" data-i18n="community.card3.title">Blog</div>
+                <img
+                  src="images/blog.png"
+                  alt="InfoBIM blog"
+                  class="community-icon"
+                />
+              </a>
+              <div class="small text-secondary" data-i18n="community.card3.body">
+                Follow deep dives on IFC automation, capabilities and real projects in periodic articles.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mt-5 pt-4 pb-4 border-top border-success border-opacity-25 small text-secondary">
+      <div class="container">
+        <div class="row gy-2 align-items-center">
+          <div class="col-12 col-md-8">
+            <p class="mb-1" data-i18n="footer.disclaimer">
+              InfoBIM IFC is provided as open-source software. Validate results and configurations before using it in production environments.
+            </p>
+            <p class="mb-0" data-i18n="footer.rights">
+              All trademarks, product names and company names are the property of their respective owners.
+            </p>
+          </div>
+          <div class="col-12 col-md-4 text-md-end">
+            <p class="mb-0 text-success" data-i18n="footer.madeInBrazil">
+              Proudly developed in Brazil, so far.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+
+
+
+    <script>
+      (function () {
+        var currentLang = null;
+        function detectLanguage() {
+          try {
+            var stored = localStorage.getItem("infobim_lang");
+            if (stored) return stored;
+          } catch (e) {}
+          var navLang = (navigator.language || navigator.userLanguage || "en").toLowerCase();
+          if (navLang.indexOf("pt") === 0) return "pt-BR";
+          if (navLang.indexOf("en") === 0) return "en";
+          return "en";
+        }
+
+        function applyTranslations(dict, lang) {
+          document.documentElement.lang = lang;
+          document.documentElement.setAttribute("data-lang", lang);
+
+          Object.keys(dict).forEach(function (key) {
+            var nodes = document.querySelectorAll('[data-i18n="' + key + '"]');
+            nodes.forEach(function (node) {
+              node.textContent = dict[key];
+            });
+
+            var metaNodes = document.querySelectorAll('meta[data-i18n-meta="' + key + '"]');
+            metaNodes.forEach(function (node) {
+              node.setAttribute("content", dict[key]);
+            });
+          });
+
+          var ogLocale = "en_US";
+          if (lang === "pt-BR") ogLocale = "pt_BR";
+          else if (lang === "es") ogLocale = "es_ES";
+          var ogLocaleMeta = document.querySelector('meta[property="og:locale"]');
+          if (ogLocaleMeta) {
+            ogLocaleMeta.setAttribute("content", ogLocale);
+          }
+        }
+
+        function loadTranslations(lang) {
+          var file = "i18n/" + lang + ".json";
+          return fetch(file).then(function (response) {
+            if (!response.ok) {
+              throw new Error("failed to load " + file);
+            }
+            return response.json();
+          });
+        }
+
+        function setLanguage(lang) {
+          return loadTranslations(lang)
+            .then(function (dict) {
+              applyTranslations(dict, lang);
+              currentLang = lang;
+              try {
+                localStorage.setItem("infobim_lang", lang);
+              } catch (e) {}
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          var initialLang = detectLanguage();
+
+          setLanguage(initialLang).catch(function () {
+            setLanguage("en").catch(function () {});
+          });
+
+          var langButtons = document.querySelectorAll(".lang-switch");
+          langButtons.forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              var target = btn.getAttribute("data-lang");
+              if (!target || target === currentLang) return;
+              setLanguage(target).catch(function () {});
+            });
+          });
+        });
+      })();
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

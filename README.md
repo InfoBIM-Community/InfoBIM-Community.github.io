@@ -1,123 +1,114 @@
-<div>
-  <div style="display: inline-block; vertical-align: middle;" width="100">
-    <img src="https://avatars.githubusercontent.com/u/252078843" width="100" alt="InfoBIM Logo" />
-  </div>
+# Welcome to InfoBIM
+<div align="center">
+  <pre>
+  _____        __      ____ _____ __  __
+ |_   _|      / _|    |  _ \_   _|  \/  |
+   | |  _ __ | |_ ___ | |_) || | | \  / |
+   | | | '_ \|  _/ _ \|  _ < | | | |\/| |
+  _| |_| | | | || (_) | |_) || |_| |  | |
+ |_____|_| |_|_| \___/|____/_____|_|  |_|
+  </pre>
   <div style="display: inline-block; vertical-align: middle; margin-left: 10px;">
-    <h1 style="margin: 0; border-bottom: none;">BIM on the inside, drawings on the outside, data for everyone.</h1>
+    <h1 style="margin: 0; border-bottom: none;">InfoBIM: The Capability Engine for BIM Automation</h1>
+    <p style="margin: 4px 0 0 0; font-style: italic;">The interface between BIM data, Human Engineers, and AI Agents.</p>
   </div>
 </div>
 
-[![License](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by/4.0/)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![Status](https://img.shields.io/badge/Status-Development-yellow?style=for-the-badge)
 
-> **"If acceptance is PDF, IFC becomes contractual decoration."**
+> **“Engineers focus on what matters; the runtime handles the rest.”**
 
-<div align="center">
+<div align="right">
 
-### 📜 [Read the Manifesto](./MANIFESTO.md)
 **[🇧🇷 Versão em Português](./pt_br/README.md)**
 
 </div>
 
 ---
 
-## 1. The Reality Check: "Facade BIM"
+## Overview
 
-In many public projects and real-world scenarios, **PDF/DWG delivery is non-negotiable**.
-The mistake isn't generating sheets. The mistake is treating the sheet as the **source of truth** and the model as a contractual accessory.
+InfoBIM IFC is a modular runtime environment for Engineering Automation designed to bridge the gap between static BIM data and dynamic AI agents.
 
-*   **The Problem**: The team delivers models, coordination, and data, but the acceptance process validates only the PDF.
-*   **The Consequence**: BIM becomes "gourmet CAD". Rich models rot on hard drives while decisions are made on static images.
-*   **The Risk**: In the age of AI, validating projects via PDF makes them "invisible" to agents that could optimize costs and schedules.
-
-**InfoBIM** exists to operate in this real world: delivering what the market demands (PDFs/Drawings) without giving up what the 21st century allows (Data/BIM).
-
-> **"PDF doesn't invalidate BIM; it only invalidates the fetish."**
+Instead of treating BIM models as passive files, InfoBIM exposes **Capabilities** – small, reusable pieces of engineering logic that can be orchestrated by humans or AI agents.
 
 ---
 
-## 2. The Solution: InfoBIM
+## Interface for Agents: The Discovery Protocol
 
-**InfoBIM** is an operational hub for **triage, audit, and execution** of BIM data. It acts as a bridge between the "messy" reality of construction inputs and the structured requirements of data management.
+InfoBIM is *agent‑friendly*. It provides a machine‑readable catalog of tools, enabling LLMs to understand available functions and their parameters without hallucinations.
 
-### Core Principles
-1.  **BIM is Process, not File**: The real value lies in collaboration and data structuring.
-2.  **Model is Engine, Sheet is Interface**: The model works behind the scenes to generate the necessary documentation.
-3.  **Automation via Capabilities**: Don't build monolithic apps. Build small, reusable, agent-ready tools.
+By wrapping code in metadata, JSON Schemas, and documentation, logic becomes discoverable and self‑descriptive.
 
-### The Methodology
-1.  **Input (Real World)**: Accepts "dirty" or non-parameterized data (DWG, PDF, legacy spreadsheets).
-2.  **Core (Capabilities)**: Data is processed by atomic **Capabilities** (scripts that do one thing well, e.g., "Check Sewage Slope").
-3.  **Output (The Market)**: Automatically generates what the contract demands (PDF sheets) *derived* from the model, plus structured data (IFC/JSON) for those ready to consume it.
+Typical agent workflow:
 
----
+- `./infobim run --json` — returns a JSON catalog of available Capabilities.
+- Agent selects a Capability and calls, for example:  
+  `./infobim run {capability_id} {ifc_file_path} --export json`.
 
-## 3. The Hybrid Architecture: TUI + Capabilities + AI
-
-The project consolidates scattered tools into a coherent architecture that unites three worlds:
-
-### 🏃 The Human Interface (TUI)
-Built on **Textual** and **Rich**. Fast, lightweight, and focused on productivity.
-*   **Triage & Navigation**: Automatic directory scanning and IFC filtering.
-*   **Visual Feedback**: Semantic colors and real-time progress.
-
-### 🧩 The Capability Engine
-The **InfoBIM Stack** is a runtime for engineering logic.
-*   **Radical Standardization**: Docker and rigid folder structures ensure scripts run anywhere.
-*   **Atomic Units**: Features are delivered as **Capabilities** (e.g., `infobim.capability.list_sewage_pipes`).
-*   **Self-Documenting**: Every capability declares its own Inputs and Outputs via JSON Schema.
-
-### 🤖 Agent-Ready (AI as Planner)
-*   **LLM Plans, Capabilities Execute**: An AI doesn't "guess" the pipe slope. It calls the `list_sewage_pipes` capability.
-*   **Discovery**: Agents can query the system (`./infobim run --json`) to learn what tools are available.
-*   **Auditable**: The actual calculation is performed by deterministic Python code, not hallucinated by the model.
+Agents do not *guess* geometry; they call Capabilities that return precise results.
 
 ---
 
-## 4. Architecture & Data Flow
+## Clash Detection & Compliance
 
-### Layers
-1.  **Presentation (TUI)**: Manages input/output and screens.
-2.  **Adapters**: The bridge between CLI/TUI and the Core.
-3.  **Domain (OntoBDC)**: The BIM business rules engine and persistence layer.
-4.  **Infrastructure**: Bash scripts and Docker.
+InfoBIM focuses on deterministic, auditable checks for BIM quality and compliance:
 
-### Event Sourcing
-Unlike systems that rely on file comparisons (IFC diffs), InfoBIM focuses on **action traceability**. Every operation (import, fix, export) is a registered event, allowing for objective auditing: *"Who did what, when, and with which parameters?"*
+- **IDS‑native rules** – supports buildingSMART IDS files to encode requirements as machine‑readable contracts.
+- **Property‑first checks** – software‑agnostic checks using property sets, with official or custom schemas.
+- **Always‑on engine** – the engine can run continuously, applying complex engineering standards the same way every time.
+- **Engineer in command** – the final decision stays with the engineer, who can override or refine any result.
 
 ---
 
-## 5. Preview
+## Automatic Descriptive Reports
 
-<table>
-<tr>
-<td width="50%">
-<a href="">
-<img src="docs/images/menu-preview.png" alt="InfoBIM CLI Main Menu" />
-</a>
-</td>
-<td width="50%">
-<a href="">
-<img src="docs/images/report-preview.png" alt="IFC File Details" />
-</a>
-</td>
-</tr>
-<tr>
-<td align="center"><b>Main Menu</b><br/>The central hub for triage and navigation.</td>
-<td align="center"><b>IFC File Details</b><br/>Structured inspection and reporting.</td>
-</tr>
-</table>
+InfoBIM turns descriptive reports into code.
+
+Capabilities generate Markdown sections for each chapter of the technical narrative directly from IFC models – project identification, floor summaries, spaces, and systems.
+
+- **Faster memorials** – identification and context come straight from IFCs as ready‑to‑use Markdown.
+- **Traceable narrative** – every paragraph is backed by Capabilities, so statements can be traced back to model data.
+- **Capability‑driven reports** – sections are generated by Capabilities in consistent Markdown, ready for human review.
+- **Reusable knowledge** – narrative logic lives in Capabilities and Usecases, not in one person’s head.
+
+Agents do not write memorials from scratch; they call Capabilities that output verifiable Markdown blocks.
 
 ---
 
-## 6. How to Run
+## Pricing & Distribution
+
+InfoBIM IFC is **FREE and open‑source**.
+
+You can:
+
+- **Run self‑hosted** – clone the GitHub repository, configure your projects, and start the services on your own infrastructure.
+- **Work with an implementor** – rely on a specialized implementor who handles installation, infrastructure, and ongoing DevOps support for your deployment.
+
+---
+
+## Community
+
+InfoBIM is designed for collaboration. Join the community and share Capabilities, experiments, and real‑world IFC automation recipes.
+
+- **GitHub** – source code, issues, and capability examples: https://github.com/InfoBIM-Community
+- **Discord** – real‑time chat to discuss pipelines, standards, and automation: https://discord.gg/j8zTsdBw
+- **Blog** – deep dives on IFC automation, Capabilities, and real projects: https://blog.infobim.org
+
+---
+
+## Getting Started
 
 The tool is designed to run in containers.
 
 ### Prerequisites
-- Docker Engine & Docker Compose
+
+- Docker Engine
+- Docker Compose
 
 ### Commands
+
 ```bash
 # Install and verify environment
 ./infobim install
@@ -129,17 +120,10 @@ The tool is designed to run in containers.
 
 ---
 
-## 7. Distribution Model
-
-*   **Local (Open Source)**: For technical users. Requires Docker. Free and unlimited.
-*   **Provider (API)**: For the general AECO market. Users access via API/Web managed by a provider, eliminating infrastructure friction.
-
----
-
 ## License
 
 This project is licensed under the **Apache License 2.0**. See the [LICENSE](LICENSE) file for details.
 
 <div align="center">
-  <b>Proudly developed in Brazil 🇧🇷, so far</b>
+  <b>Proudly developed in Brazil 🇧🇷, so far.</b>
 </div>
