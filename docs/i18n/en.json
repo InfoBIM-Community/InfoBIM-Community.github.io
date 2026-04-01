@@ -11,6 +11,7 @@
   "hero.clt.title": "Stable Runtime",
   "hero.clt.body": "You don't need to manually configure environments with IfcOpenShell or manage Python library conflicts.",
   "hero.quote": "“Engineers focus on what matters; the runtime handles the rest.”",
+  "hero.getStarted": "Get Started",
   "discovery.title": "Interface for Agents: The Discovery Protocol",
   "discovery.lead1": "InfoBIM is 'Agent-Friendly'. It provides a machine-readable catalog of tools, enabling LLMs to understand available functions and their parameters without hallucinations.",
   "discovery.lead2": "By wrapping codes in metadata, schema, and documentation, logic becomes discoverable and self-descriptive.",

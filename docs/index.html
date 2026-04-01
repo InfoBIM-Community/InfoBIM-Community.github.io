@@ -69,9 +69,6 @@
       }
       .infobim-logo {
         height: 50px;
-        filter:
-          drop-shadow(0 0 8px rgba(111, 255, 211, 0.75))
-          drop-shadow(0 0 16px rgba(111, 255, 211, 0.4));
       }
       @media (min-width: 992px) {
         .infobim-logo {
@@ -110,6 +107,20 @@
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 0.12em;
+      }
+      .cta-button {
+        border: 1px solid rgba(111, 255, 211, 0.65);
+        box-shadow: 0 0 18px rgba(111, 255, 211, 0.22);
+        background: linear-gradient(135deg, rgba(25, 135, 84, 0.95), rgba(111, 255, 211, 0.22));
+        transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
+      }
+      .cta-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 0 26px rgba(111, 255, 211, 0.32);
+        filter: brightness(1.03);
+      }
+      .cta-button:focus-visible {
+        box-shadow: 0 0 0 0.25rem rgba(111, 255, 211, 0.25), 0 0 26px rgba(111, 255, 211, 0.32);
       }
       body {
         padding-top: 3.5rem;
@@ -445,6 +456,19 @@
                   ...
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="d-flex justify-content-center mt-2">
+              <a
+                class="btn btn-success btn-lg px-5 py-3 fw-semibold cta-button"
+                href="https://github.com/InfoBIM-Community/infobim-core?tab=readme-ov-file#-quick-start"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-i18n="hero.getStarted"
+              >
+                Get Started
+              </a>
             </div>
           </div>
         </div>
